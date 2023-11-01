@@ -1,0 +1,511 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  html{
+    scroll-behavior: smooth;
+  }
+  body{
+    background-color: #F8F8F6;
+    width: 1903px;
+  }
+  header, main{
+    padding-left: 98px;
+    padding-right: 98px;
+  }
+  footer{
+    padding: 0%;
+
+  }
+  header{
+    width: 1300px;
+    height: 100px;
+    background-repeat: no-repeat;
+  }
+  .header_content{
+    padding-top: 40px;
+    width: 1300px;
+  }
+
+  nav{
+    height: 25px;
+    width: 90vw;
+  }
+  .nav_menu{
+    display: inline-flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 43.5px;
+    right: 213px;
+    color: #122947;
+    font-family: 'Heebo';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .nav_menu li:last-child{
+    width: 75px;
+    margin-left: 35px;
+    list-style-type: none;
+  }
+  .user{
+    position: relative;
+    bottom: 25px;
+  }
+  li img{
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+  }
+  .nav_menu li{
+
+    cursor: pointer;
+  }
+  .nav_menu li{
+    cursor: pointer;
+    text-align: center;
+    width: 75px;
+    margin-left: 40px;
+    list-style-type: none;
+  }
+  .nav_menu li a{
+    font-family: 'Heebo';
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+
+  }
+  .nav_icons{
+    display: inline-flex;
+    justify-content: space-between;
+    list-style: none;
+    position: absolute;
+    right: 98px;
+  }
+  .nav_icons li img:last-child{
+    margin-left: 30px;
+  }
+  .header_lane{
+    width: 90vw;
+    position: relative;
+    left: 0;
+  }
+  /* The Modal (background) */
+  .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 23%;
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .avatar {
+      vertical-align: middle;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    #snackbar {
+      visibility: hidden;
+      min-width: 250px;
+      margin-left: -125px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 2px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+    }
+    label,
+    input {
+        display: block;
+        width: 100%;
+      padding-bottom:10px;
+    }
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        padding: 0.3em;
+    }
+    input[type="submit"] {
+        background: #021a3e;
+        color: white;
+        font-weight: 700;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        margin-top: 1.3em;
+      cursor:pointer;
+    }
+    input[type="submit"]:hover{
+      background-color:#224c8c;
+    }
+
+    .modal_container {
+        width: 460px;
+        margin: 5em auto;
+        z-index: 3;
+    }
+
+    form {
+        background-color: #ffffff;
+        padding-top: 40px;
+        padding-right: 40px;
+        padding-bottom: 40px;
+        padding-left: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+    }
+
+
+    input {
+        width: 100%;
+        padding: 9px 20px;
+        border: 1px solid #e1e2eb;
+        color: #102a43;
+        box-sizing: border-box;
+        font-size: 14px;
+        box-shadow: inset 0 2px 4px 0 rgba(206, 209, 224, 0.2);
+        border-radius: 3px;
+    }
+    #snackbar.show {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+    .profile-bar img{
+        width: 100px;
+        height: 100px;
+    }
+    .view{
+      display: block;
+    }
+    .password_hide{
+      width: 25px !important;
+      height: 25px !important;
+      position: relative;
+      bottom: 33px;
+      left: 325px;
+      user-select: none;
+      overflow: hidden;
+    }
+   input[type=file]{
+      display: none;
+      opacity: 0;
+  }
+  .file-label{
+      width: 100%;
+      padding: 9px 20px;
+      border: 1px solid #e1e2eb;
+      color: #102a43;
+      box-sizing: border-box;
+      font-size: 14px;
+      box-shadow: inset 0 2px 4px 0 rgba(206, 209, 224, 0.2);
+      border-radius: 3px;
+      cursor: pointer;
+  }
+  .cart-image{
+      width: 400px;
+      height: 300px;
+  }
+  #edit_form{
+    z-index: 3;
+  }
+  .empty{
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    left: 45%;
+    top: 200px;
+  }
+  .empty-title{
+    position: relative;
+    right: 150px;
+    color: #122947;
+    text-align: center;
+    font-family: 'Heebo';
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%; /* 52.2px */
+  }
+  .empty-body{
+    color: #122947;
+    text-align: center;
+    font-family: 'Heebo';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 145%; /* 34.8px */
+    text-decoration-line: underline;
+  }
+
+  .profile-carts{
+      width: 90vw;
+  }
+  .product-card{
+      display: inline-block;
+      margin-left: 60px;
+  }
+  .product-card:first-child{
+      margin-left: 0px;
+  }
+  .product-card-image{
+      width: 270px;
+      height: 350px;
+  }
+  .product-card-category{
+      color: #9A9DA0;
+      font-family: "Heebo";
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 145%; /* 18.85px */
+      position: relative;
+      bottom: 75px;
+      left: 20px;
+  }
+  .product-card-footer{
+      display: inline-flex;
+      position: relative;
+      top: -45px;
+      left: 53px;
+  }
+  .product-card-footer p{
+      margin-left: 27px;
+      margin-right: 27px;
+      width: 75px;
+      height: 25px;
+      text-align: center;
+      font-family: 'Raleway';
+  }
+  .product-card-footer button{
+      width: 15px;
+      height: 15px;
+      background-color: transparent;
+      border: transparent;
+      text-align: center;
+      cursor: pointer;
+  }
+  .product-card-price{
+    color: #122947;
+    font-family: 'Heebo';
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%; /* 18.85px */
+    position: relative;
+    left: 255px;
+    left: 215px;
+    width: 250px;
+    bottom: 80px;
+  }
+  .product-card-name{
+    width: 30px;
+    font-size: 16px;
+    position: relative;
+    bottom: 59px;
+    left: 20px;
+    color: #122947;
+    font-family: 'Raleway';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%; /* 23.2px */
+  }
+  .price-list{
+      margin-top: 50px;
+      width: 90vw;
+      height: 105px;
+      display: inline-flex;
+  }
+  .price-list p{
+      color: #122947;
+      font-family: 'Raleway';
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+  }
+  .price-word{
+
+  }
+  .pay-click{
+      margin-left: 60vw;
+      width: 300px;
+      height: 50px;
+      position: relative;
+      bottom: 10px;
+      color: #122947;
+      font-family: 'Raleway';
+      font-size: 24px;
+      font-style: normal;
+      cursor: pointer;
+      font-weight: 400;
+      line-height: normal;
+      border-radius: 2px;
+      border: 1px solid #B3BAC1;
+  }
+  .pay-click:hover{
+      transition: 0.6s;
+      background-color: transparent;
+  }
+  .price-item{
+      margin-left: 5vw;
+  }
+  .other_info{
+      margin-top: 150px;
+  }
+  li a{
+      text-decoration: none;
+  }
+  .other_info h3{
+      color: #122947;
+      font-family: 'Raleway';
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 125%; /* 40px */
+      position: relative;
+      left: 700px;
+      width: 400px;
+  }
+  .container{
+      position: absolute;
+      left: 9px;
+  }
+  footer{
+    background-color: #F4F1ED;
+    width: 99vw;
+    height: 275px;
+    margin-top: 590px;
+    margin-top: 109px;
+  }
+  .footer_logo{
+    position: relative;
+    top: 84px;
+    left: 138px;
+  }
+  .footer_lane{
+    width: 99vw;
+    position: relative;
+    top: 76px;
+  }
+  .footer_nav{
+    position: relative;
+    width: 800px;
+    left: 421px;
+    top: 63px;
+  }
+  .footer_nav ul li{
+    display: inline-flex;
+    list-style-type: none;
+    margin-left: 57px;
+    width: 91px;
+
+
+  }
+  .footer_nav a{
+    color: #122947;
+    text-decoration: none;
+  }
+  .footer_nav a:hover{
+    opacity: 0.7;
+  }
+  .footer_nav ul li:first-child{
+    margin-left: 0px;
+  }
+  .footer_company_name{
+    color: #959595;
+    font-family: 'Heebo';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    width: 61px;
+    height: 14px;
+    position: relative;
+    top: 125px;
+    left: 138px;
+  }
+  .footer_security{
+    color: #959595;
+    font-family: 'Heebo';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    position: relative;
+    top: 104px;
+    width: 250px;
+    left: 206px;
+  }
+  .footer_politic_conf{
+    position: relative;
+    left: 1525px;
+    top: 95px;
+    width: 250px;
+    color: #959595;
+    font-family: "Heebo";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .footer_icons{
+    width: 200px;
+    height: 15px;
+    position: relative;
+    left: 1530px;
+    top: 35px;
+  }
+  .footer_icons img:first-child{
+    margin-left: 0px;
+  }
+  .footer_icons img{
+    margin-left: 35px;
+
+  }
+
+
+
