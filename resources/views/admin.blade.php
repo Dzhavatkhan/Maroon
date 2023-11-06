@@ -8,6 +8,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <title>Admin dashboard</title>
+    <style>
+        .sup_body{
+          display: none !important;
+        }
+        .sup_face{
+          display: none !important;
+        }
+        .check_plus{
+          display: block;
+        }
+      </style>
 </head>
 <body>
     <div class="container">
@@ -128,6 +139,20 @@
     </div>
 
     <script>
+
+        let f_checkbox = document.getElementById('face')
+        let b_checkbox = document.getElementById('body')
+        let f_surpize = document.getElementById('surp_face');
+        let b_surpize = document.getElementById('surp_body');
+        if (f_checkbox.checked) {
+            console.log('check');
+            f_surpize.classlist.remove('sup_face')
+               f_surpize.classlist.add('check_plus')
+        }
+        else {
+            console.log(0);
+        }
+        console.log(f_checkbox,b_checkbox);
 
         $(document).ready(function () {
             getProducts();

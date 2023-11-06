@@ -22,9 +22,11 @@ class AdminController extends Controller
         $admins = Admin::all();
         $users = User::all();
         $admin = Auth::user();
-        return view('admin', compact('admin'));
+        $cat_for_body = DB::select("SELECT * FROM type_categories WHERE categories_id = 2;");
+        $cat_for_face = DB::select("SELECT * FROM type_categories WHERE categories_id = 1;");
+        $categories = DB::select("SELECT DISTINCT * FROM categories");
+        return view('admin', compact('admin', 'categories','cat_for_face','cat_for_body'));
         // return view('admin', [
-        //     // "admin"  => $admin,
         //     "users"  => $users,
         //     "admin"  => $admin,
         //     "admins" => $admins

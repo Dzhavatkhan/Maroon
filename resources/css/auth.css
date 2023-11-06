@@ -20,6 +20,9 @@ h1 {
 	font-weight: bold;
 	margin: 0;
 }
+.welcome_back{
+	width: 320px;
+}
 
 h2 {
 	text-align: center;
@@ -86,6 +89,7 @@ input {
 	background-color: #eee;
 	border: none;
 	padding: 12px 15px;
+	color: #222;
 	margin: 8px 0;
 	width: 100%;
 }
@@ -125,7 +129,34 @@ input {
 	opacity: 0;
 	z-index: 1;
 }
-
+.signIn_login_error{
+	color: crimson;
+	position: relative;
+	bottom: 15px;
+	left: 0px;
+	height: 30px;
+	margin-bottom: 0px;
+	text-align: left;
+}
+.reg_error{
+	color: crimson;
+	position: relative;
+	bottom: 20px;
+	font-size: 11px;
+	height: 30px;
+	left: 15px;
+	margin-bottom: 0px;
+	text-align: left;
+}
+.signIn_passowrd_error{
+	color: crimson;
+	position: relative;
+	bottom: 15px;
+	height: 30px;
+	left: 15px;
+	margin-bottom: 0px;
+	text-align: left;
+}
 .container.right-panel-active .sign-up-container {
 	transform: translateX(100%);
 	opacity: 1;
@@ -251,16 +282,22 @@ footer a {
     text-decoration: none;
 }
 .input-file-row{
+    margin: 8px 0;
+	height: 39px;
     width: 100%;
 }
 .input-file {
 	position: relative;
 	display: inline-block;
     width: 100%;
+	height: 39px;
     text-wrap: nowrap;
     overflow: hidden;
 }
 .input-file span {
+	font-family: 'Montserrat';
+	font-size: 16px;
+	color: #222;
 	position: relative;
 	display: inline-block;
 	cursor: pointer;
@@ -271,10 +308,9 @@ footer a {
 	border-radius: 4px;
 	background-color: #eee;
 	line-height: 22px;
-	height: 40px;
+	height: 39px;
     width: 100%;
-	padding: 10px 20px;
-    margin: 8px 0;
+	padding: 10px 15px;
 	transition: background-color 0.2s;
 }
 .input-file input[type='file'] {

@@ -1,3 +1,4 @@
+
 <form class="addProduct" enctype="multipart/form-data">
     @csrf
         <!-- Modal body -->
@@ -17,23 +18,40 @@
               </div>
               <div class="mb-3 mt-1">
                 <p>Категории</p>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="check1" name="category" value="Крема">
-                    <label class="form-check-label" for="check1">Крема</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" id="check2" name="category" value="sometСывороткиhing">
-                    <label class="form-check-label" for="check2">Сыворотки</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" id="check3" name="category" value="Маски">
-                    <label class="form-check-label" for="check3">Маски</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" type="radio" id="check4" name="category" value="Пенки">
-                    <label class="form-check-label" for="check4">Пенки</label>
-                  </div>
-              </div>
+                <div class="row">
+                  @foreach ($categories as $category)
+                    <div class="col">
+                      <div class="form-check"> 
+                        
+                        @if ($category->name == "Уход для тела")
+                        <label class="form-check-label a{{ $category->name }}" for="check1">{{ $category->name }}</label>
+                        <input class="form-check-input body" id="body" type="radio" id="check1" name="category" value="{{ $category->name }}">    
+                        @elseif($category->name == "Уход для лица")
+                        <label class="form-check-label a{{ $category->name }}" for="check1">{{ $category->name }}</label>
+                        <input class="form-check-input face" id="face" type="radio" id="check1" name="category" value="{{ $category->name }}">    
+                        @endif
+
+                      </div>
+                    </div> 
+                    @endforeach  
+                  </div>                                     
+                  @foreach ($cat_for_face as $c_f_f)
+                    <div class="t_c form-check sup_face" id="surp_face" >
+                      <label class="form-check-label " for="check1">{{ $c_f_f->name }}</label>
+                      <input class="form-check-input" id="" type="radio" id="check1" name="category" value="{{ $c_f_f->name }}">                    
+                    </div>                      
+                  @endforeach
+                  @foreach ($cat_for_body as $c_f_b)
+                    <div class="t_c form-check sup_body" id="surp_body" >
+                      <label class="form-check-label " for="check1">{{ $c_f_b->name }}</label>
+                      <input class="form-check-input" id="" type="radio" id="check1" name="category" value="{{ $c_f_b->name }}">                    
+                    </div>                      
+                  @endforeach
+
+
+
+                </div>
+
 
 
               <div class="form-floating mb-3 mt-3">

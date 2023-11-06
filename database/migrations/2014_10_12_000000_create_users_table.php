@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('avatar');
             $table->string('login')->nullable()->unique();
             $table->string('user_address')->nullable();
+            $table->bigInteger('balance')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

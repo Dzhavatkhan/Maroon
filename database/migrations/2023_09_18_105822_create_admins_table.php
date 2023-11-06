@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('login')->nullable();
             $table->string("admin_name")->nullable();
+            $table->string("status")->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

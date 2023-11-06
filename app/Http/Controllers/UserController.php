@@ -54,11 +54,11 @@ class UserController extends Controller
      */
     public function signUp(AuthRequest $request)
     {
-        $login    = $request->login;
-        $name     = $request->name;
-        $avatar   = $request->avatar;
+        $login    = $request->reg_login;
+        $name     = $request->reg_name;
+        $avatar   = $request->reg_avatar;
         $token    = $request->_token;
-        $password = $request->password;
+        $password = $request->reg_password;
         $upload_folder = 'public/img/profiles';
         $avatar = time().'.'.$avatar->extension();
         $request->avatar->move(public_path('img/profiles'),$avatar );
