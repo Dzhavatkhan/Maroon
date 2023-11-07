@@ -15,6 +15,12 @@
         .sup_face{
           display: none !important;
         }
+        .sup_body_edit{
+          display: none !important;
+        }
+        .sup_face_edit{
+          display: none !important;
+        }
         .check_plus{
           display: block;
         }
@@ -143,6 +149,36 @@
 
     <script>
 
+        function check_edit(){
+
+        let f_checkbox = document.getElementById('face_edit')
+        let b_checkbox = document.getElementById('body_edit')
+
+        let f_surpize = document.getElementById('surp_face_edit');
+        let b_surpize = document.getElementById('surp_body_edit');
+
+        console.log(f_checkbox,b_checkbox);
+        if (f_checkbox.checked) {
+            f_surpize.classList.remove('sup_face_edit')
+
+            b_surpize.classList.remove('check_plus')
+            b_surpize.classList.add('sup_body_edit')
+
+            f_surpize.classList.add('check_plus')
+        }
+        else if(b_checkbox.checked){
+            b_surpize.classList.remove('sup_body_edit')
+
+            f_surpize.classList.remove('check_plus')
+            f_surpize.classList.add('sup_face_edit')
+
+            b_surpize.classList.add('check_plus')
+        }
+        else {
+            console.log(0);
+        }
+        }
+
         function check(){
 
             let f_checkbox = document.getElementById('face')
@@ -155,7 +191,7 @@
             f_surpize.classList.remove('check_plus')
             b_surpize.classList.remove('check_plus')
             if (f_checkbox.checked) {
-                console.log('check face');
+               alert('check face');
                 f_surpize.classList.remove('sup_face')
 
                 b_surpize.classList.remove('check_plus')
@@ -164,7 +200,7 @@
                 f_surpize.classList.add('check_plus')
             }
             else if(b_checkbox.checked){
-                console.log('check face');
+                alert('check face');
                 b_surpize.classList.remove('sup_body')
 
                 f_surpize.classList.remove('check_plus')

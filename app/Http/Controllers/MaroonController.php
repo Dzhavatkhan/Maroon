@@ -39,7 +39,8 @@ class MaroonController extends Controller
         return view('product', compact('product', 'recomendations'));
     }
     public function getCatalog(){
-        return view('catalog');
+        $products = DB::select("SELECT *, type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id");
+        return view('catalog', compact('products'));
     }
     /**
      * Update the specified resource in storage.

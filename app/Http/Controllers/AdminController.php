@@ -45,9 +45,16 @@ class AdminController extends Controller
     public function getProducts(){
         $products = DB::select("SELECT *, type_skins.name AS 'skin', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id LEFT JOIN type_skins ON products.type_skins_id = type_skins.id ");
         $products_count = Product::all()->count();
-        return view('ajax_blade.products', compact('products', 'products_count'));
+        $cat_for_body = DB::select("SELECT * FROM type_categories WHERE categories_id = 2;");
+        $cat_for_face = DB::select("SELECT * FROM type_categories WHERE categories_id = 1;");
+        $categories = DB::select("SELECT DISTINCT * FROM categories");
+        $skins = DB::select("SELECT * FROM type_skins");
+        return view('ajax_blade.products', compact('products', 'products_count', 'cat_for_body', 'cat_for_face', 'categories', 'skins'));
 
 
+    }
+    public function update_product(Request $request, $id){
+        dd($request->all());
     }
 
     public function admin_logout(){
