@@ -25,7 +25,8 @@ class AdminController extends Controller
         $cat_for_body = DB::select("SELECT * FROM type_categories WHERE categories_id = 2;");
         $cat_for_face = DB::select("SELECT * FROM type_categories WHERE categories_id = 1;");
         $categories = DB::select("SELECT DISTINCT * FROM categories");
-        return view('admin', compact('admin', 'categories','cat_for_face','cat_for_body'));
+        $skins = DB::select("SELECT * FROM type_skins");
+        return view('admin', compact('admin', 'categories','cat_for_face','cat_for_body', 'skins'));
         // return view('admin', [
         //     "users"  => $users,
         //     "admin"  => $admin,
@@ -42,8 +43,8 @@ class AdminController extends Controller
         return view("ajax_blade.admins", compact('admins'));
     }
     public function getProducts(){
-        $products = Product::all();
-        $products_count = $products->count();
+        $products = DB::select("SELECT *, type_skins.name AS 'skin', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id LEFT JOIN type_skins ON products.type_skins_id = type_skins.id ");
+        $products_count = Product::all()->count();
         return view('ajax_blade.products', compact('products', 'products_count'));
 
 
@@ -63,7 +64,8 @@ class AdminController extends Controller
         $name_image = time().'.'.$request->image->extension();
         $data = [
             "product_name" => $request->product_name,
-            "category" => $request->category,
+            "type_categories_id" => $request->type_categories_id,
+            "type_skins_id" => $request->type_skins_id,
             "brand" => $request->brand,
             "price" => $request->price,
             "description" => $request->description,
@@ -136,7 +138,7 @@ class AdminController extends Controller
         if (DB::table('orders')->where('product_id', $product_id)->count() > 0) {
             $order = DB::table('orders')->where('product_id', $product_id);
             $order->delete();
-            
+
         }
         $del = $product->delete();
         if ($del) {

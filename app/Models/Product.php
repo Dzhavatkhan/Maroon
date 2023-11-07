@@ -13,7 +13,8 @@ class Product extends Model
         'brand',
         'image',
         'description',
-        'category',
+        'type_categories_id',
+        'type_skins_id',
         'quantity',
         'price'
     ];

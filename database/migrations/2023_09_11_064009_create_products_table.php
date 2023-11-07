@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('product_name')->nullable();
-            $table->foreignId('categories_id')->constrained('categories');
+            $table->foreignId('type_categories_id')->constrained('type_categories');
             $table->foreignId('type_skins_id')->constrained('type_skins');
             $table->string('brand')->nullable();
             $table->string('image')->nullable();
             $table->string('description')->nullable();
-            $table->string('category')->nullable();
             $table->bigInteger('quantity')->nullable();
             $table->bigInteger('price')->nullable();
             $table->timestamps();

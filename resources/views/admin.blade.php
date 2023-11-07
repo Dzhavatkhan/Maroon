@@ -38,9 +38,12 @@
                 <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#menu1">Клиенты</a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#menu2">Админы</a>
-                </li>
+                @if ($admin->status == "sen")
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#menu2">Админы</a>
+                    </li>
+                @endif
+
             </ul>
 
             <!-- Tab panes -->
@@ -140,19 +143,40 @@
 
     <script>
 
-        let f_checkbox = document.getElementById('face')
-        let b_checkbox = document.getElementById('body')
-        let f_surpize = document.getElementById('surp_face');
-        let b_surpize = document.getElementById('surp_body');
-        if (f_checkbox.checked) {
-            console.log('check');
-            f_surpize.classlist.remove('sup_face')
-               f_surpize.classlist.add('check_plus')
+        function check(){
+
+            let f_checkbox = document.getElementById('face')
+            let b_checkbox = document.getElementById('body')
+
+            let f_surpize = document.getElementById('surp_face');
+            let b_surpize = document.getElementById('surp_body');
+
+
+            f_surpize.classList.remove('check_plus')
+            b_surpize.classList.remove('check_plus')
+            if (f_checkbox.checked) {
+                console.log('check face');
+                f_surpize.classList.remove('sup_face')
+
+                b_surpize.classList.remove('check_plus')
+                b_surpize.classList.add('sup_body')
+
+                f_surpize.classList.add('check_plus')
+            }
+            else if(b_checkbox.checked){
+                console.log('check face');
+                b_surpize.classList.remove('sup_body')
+
+                f_surpize.classList.remove('check_plus')
+                f_surpize.classList.add('sup_face')
+
+                b_surpize.classList.add('check_plus')
+            }
+            else {
+                console.log(0);
+            }
         }
-        else {
-            console.log(0);
-        }
-        console.log(f_checkbox,b_checkbox);
+
 
         $(document).ready(function () {
             getProducts();

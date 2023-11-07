@@ -4,9 +4,9 @@
             <td>{{$product->id}}</td>
             <td>{{$product->product_name}}</td>
             <td>{{$product->brand}}</td>
-            <td><img src="{{$product->image}}" class="img-fluid" alt=""></td>
+            <td><img src="{{asset('img/products/'.$product->image)}}" width="50" class="img-fluid" alt=""></td>
             <td>{{$product->description}}</td>
-            <td>{{$product->category}}</td>
+            <td>{{$product->category}}, {{$product->skin}} кожа</td>
             <td>{{$product->quantity}}</td>
             <td>{{$product->price}}</td>
             <td><button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#editProduct{{$product->id}}">Изменить</button>
