@@ -36,6 +36,9 @@ use Illuminate\Support\Facades\Route;
     Route::get('profile/delectCart', [UserController::class, 'delete_cart'])->name('delectCart');
     Route::get('profile/getCart', [UserController::class, 'getCart'])->name('getCart');
     Route::get('catalog', [MaroonController::class,'getCatalog'])->name('catalog');
+    Route::get('catalog/filter', [MaroonController::class, 'filter'])->name('filter');
+    Route::get('profile/id{id}/balance',[UserController::class, 'plus_balance'])->name('plus_balance');
+    Route::post('profile/id{id}/pay', [MaroonController::class,'pay'])->name('pay');
 // Route::middleware('auth')->group(function(){
     //admin-panel
 

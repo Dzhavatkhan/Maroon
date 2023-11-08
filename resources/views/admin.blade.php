@@ -191,7 +191,6 @@
             f_surpize.classList.remove('check_plus')
             b_surpize.classList.remove('check_plus')
             if (f_checkbox.checked) {
-               alert('check face');
                 f_surpize.classList.remove('sup_face')
 
                 b_surpize.classList.remove('check_plus')
@@ -200,7 +199,6 @@
                 f_surpize.classList.add('check_plus')
             }
             else if(b_checkbox.checked){
-                alert('check face');
                 b_surpize.classList.remove('sup_body')
 
                 f_surpize.classList.remove('check_plus')

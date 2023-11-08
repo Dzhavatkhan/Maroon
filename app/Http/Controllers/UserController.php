@@ -42,7 +42,7 @@ class UserController extends Controller
         $price_list = Order::all()->where("user_id", "=", $user->id);
         $price_list = $price_list->sum("order_price");
         $count = Order::all()->where('user_id', '=', $user->id)->count();
-        $products = DB::select("SELECT DISTINCT products.*, orders.quantity AS 'qu' FROM `orders` LEFT JOIN `products` ON `orders`.`product_id` = `products`.`id` WHERE `orders`.`user_id` = $user->id;");
+        $products = DB::select("SELECT DISTINCT products.*, type_categories.name AS 'category', orders.quantity AS 'qu' FROM `orders` LEFT JOIN `products` ON `orders`.`product_id` = `products`.`id` LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE `orders`.`user_id` = $user->id; ");
         return view('ajax_blade.count', compact('products', 'count', 'price_list'));
     }
 
@@ -61,7 +61,7 @@ class UserController extends Controller
         $password = $request->reg_password;
         $upload_folder = 'public/img/profiles';
         $avatar = time().'.'.$avatar->extension();
-        $request->avatar->move(public_path('img/profiles'),$avatar );
+        $request->reg_avatar->move(public_path('img/profiles'),$avatar );
         $user = User::create([
             "login"    => $login,
             "name"     => $name,
@@ -111,6 +111,21 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    public function plus_balance(Request $request){
+        $id  = Auth::user()->id;
+        $us_b = DB::select("SELECT balance FROM users WHERE id = $id");
+        foreach ($us_b as $b){
+            $us_b = $b->balance;
+        }
+        $balance = str_replace(' ', '', $request->balance);
+        $balance = $balance + $us_b;
+        User::where('id', $id)->update(
+            [ 
+                "balance" => $balance
+            ]
+            );
+            return redirect()->back();
+    }
     public function update(Request $request)
     {
         $id  = Auth::user()->id;

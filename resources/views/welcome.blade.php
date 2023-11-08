@@ -17,7 +17,7 @@
             <nav>
                 <img class="nav_svg" src="{{asset('img/MAROON.svg')}}" alt="">
                 <ul class="nav_menu">
-                    <li><a href="">Каталог</a></li>
+                    <li><a href="/catalog">Каталог</a></li>
                     <li><a href="">О нас</a></li>
                     <li><a href="">Контакты</a></li>
                 </ul>

@@ -25,10 +25,10 @@
 
                         @if ($category->name == "Уход для тела")
                         <label class="form-check-label a{{ $category->name }}" for="check1">{{ $category->name }}</label>
-                        <input class="form-check-input body" id="body" type="radio" id="check1" onchange="check()" value="{{ $category->name }}">
+                        <input class="form-check-input body" id="body" type="radio" name="category" id="check1" onchange="check()" value="{{ $category->name }}">
                         @elseif($category->name == "Уход для лица")
                         <label class="form-check-label a{{ $category->name }}" for="check1">{{ $category->name }}</label>
-                        <input class="form-check-input face" id="face" type="radio" id="check1"  onchange="check()" value="{{ $category->name }}">
+                        <input class="form-check-input face" id="face" type="radio" id="check1" name="category"  onchange="check()" value="{{ $category->name }}">
                         @endif
 
                       </div>
@@ -45,7 +45,7 @@
                                 </div>
                             @endforeach
                       </div>
-                      <div class="sup_body ms-5" id="surp_body">
+                      <div class="sup_body mt-3" id="surp_body">
                             @foreach ($cat_for_body as $c_f_b)
                                 <div class="form-check">
                                 <label class="form-check-label " for="check1">{{ $c_f_b->name }}</label>

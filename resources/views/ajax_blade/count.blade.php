@@ -1,12 +1,13 @@
 @if ($count == 0 || $count == "NULL")
     <div class="empty">
         <p class="empty-title">Ваша корзина пуста.</p>
-        <a href="/" class="empty-body">Перейти в каталог</a>
+        <a href="{{ route('catalog') }}" class="empty-body">Перейти в каталог</a>
     </div>
 @else
 @foreach ($products as $product)
     <div class="product-card">
         <div class="product-card-body">
+            <input type="hidden" name="id" id="product_id" value="{{ $product->id }}">
             <img class="product-card-image" src="{{asset('img/products/'.$product->image)}}" alt="{{$product->image}}">
             <h4 class="product-card-name">{{$product->product_name}}</h4>
             <p class="product-card-price">

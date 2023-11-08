@@ -15,13 +15,14 @@
             <nav>
                 <a href="{{route('index')}}"><img class="nav_svg" src="{{asset('img/MAROON.svg')}}" alt=""></a>
                 <ul class="nav_menu">
-                    <li>Каталог</li>
+                    <li> <a href="{{ route('catalog') }}">Каталог</a></li>
                     <li class="tablinks" onclick="openTab(event, 'cart-cart')" id="defaultOpen">Корзина</li>
                     <li class="tablinks" onclick="openTab(event, 'orders')">Заказы</li>
-                    <li>0 рублей</li>
+                    <li id="card_btn">{{ Auth::user()->balance }} ₽</li>
                     <li class="user">
                         <img id="myBtn" src="{{ asset('img/profiles/'.Auth::user()->avatar) }}" alt="" title="Нажмите на аватар, чтобы редактировать профиль">
                     </li>
+                    <li class="logout"><a href="{{ route('logout') }}" style="color: crimson; text-decoration:none;">Выйти</a></li>
                 </ul>
             </nav>
             <img class="header_lane" src="{{asset('img/lane.svg')}}" alt="">
@@ -29,6 +30,7 @@
 
     </header>
     <main>
+        @include('forms.card_modal')
         @include('forms.edit_modal_form')
 
         <div id="cart-cart" class="tabcontent">
@@ -59,6 +61,22 @@
     @vite('resources/js/profile.js')
     @vite('resources/js/slider.js')
     <script>
+            let product_id = $('#product_id').val();
+            $('.pay-click').click(function (e) { 
+                e.preventDefault();
+                alert("pay")
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('pay', Auth::user()->id) }}",
+                    data: {product_id: product_id},
+                    cache:false,
+                    contentType:false,
+
+                    success: function (response) {
+                        console.log('good');
+                    }
+                });
+            });
  function show_hide_password(target){
         var img = document.getElementById("password_img");
         var input = document.getElementById('password-input');
