@@ -252,7 +252,7 @@ main, footer{
   width: 14px;
   background-repeat: no-repeat;
   background-size: 100%;
-  background-image: url('../../public/img/Ellipse\ 23.svg');  
+  background-image: url('../../public/img/Ellipse\ 23.svg');
 }
 
 /* On mouse-over, add a grey background color */
@@ -378,7 +378,7 @@ footer{
   }
   .contact_map{
     height: 900px;
-    width: 99vw;
+    width: 1720px;
 }
 .contact-map-text{
     position: relative;
@@ -532,7 +532,7 @@ footer{
   height: 333px;
 }
 .join-section{
-  width: 99vw;
+  width: 1720px;
   height: 900px;
 }
 .join-section-text{
@@ -549,4 +549,7 @@ footer{
   font-style: normal;
   font-weight: 500;
   line-height: 130%; /* 41.6px */
+}
+body{
+  width: 1720px;
 }
