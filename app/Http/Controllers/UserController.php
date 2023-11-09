@@ -38,9 +38,9 @@ class UserController extends Controller
     public function getCart(){
 
         $user = Auth::user();
-        $price_list = DB::select("SELECT SUM(order_price) FROM `orders` WHERE `user_id` = $user->id");
-        $price_list = Order::all()->where("user_id", "=", $user->id);
-        $price_list = $price_list->sum("order_price");
+        $price_list = DB::select("SELECT SUM(order_price * orders.quantity) AS 'price' FROM `orders` WHERE `user_id` = $user->id");
+        // $price_list = Order::all()->where("user_id", "=", $user->id);
+        // $price_list = $price_list->sum("quantity") +  $price_list->sum("order_price");
         $count = Order::all()->where('user_id', '=', $user->id)->count();
         $products = DB::select("SELECT DISTINCT products.*, type_categories.name AS 'category', orders.quantity AS 'qu' FROM `orders` LEFT JOIN `products` ON `orders`.`product_id` = `products`.`id` LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE `orders`.`user_id` = $user->id; ");
         return view('ajax_blade.count', compact('products', 'count', 'price_list'));
@@ -62,12 +62,16 @@ class UserController extends Controller
         $upload_folder = 'public/img/profiles';
         $avatar = time().'.'.$avatar->extension();
         $request->reg_avatar->move(public_path('img/profiles'),$avatar );
+        if (User::query()->where('login', $login)->count() > 0) {
+            return redirect()->back()->withErrors([
+                'reg_login' => 'Такой логин уже есть'
+            ]);
+        }
         $user = User::create([
             "login"    => $login,
             "name"     => $name,
             "avatar"   => $avatar,
-            "password" => bcrypt($password),
-            "remember_token" => bcrypt($token)
+            "password" => bcrypt($password)
         ]);
         if ($user) {
             auth('web')->login($user);

@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('catalog', [MaroonController::class,'getCatalog'])->name('catalog');
     Route::get('catalog/filter', [MaroonController::class, 'filter'])->name('filter');
     Route::get('profile/id{id}/balance',[UserController::class, 'plus_balance'])->name('plus_balance');
-    Route::post('profile/id{id}/pay', [MaroonController::class,'pay'])->name('pay');
+    Route::get('profile/id{id}/pay', [MaroonController::class,'pay'])->name('pay');
 // Route::middleware('auth')->group(function(){
     //admin-panel
 

@@ -6,14 +6,14 @@
           <form id="edit_form" enctype="multipart/form-data" method="GET" action="{{route('plus_balance', Auth::user()->id)}}">
               @csrf
               @method('PATCH')
-              <span class="close">&times;</span>
+              <span class="close_b">&times;</span>
               <ul>
                   <li>
                       <label for="name">Карта</label>
                       <input type="text" name="name">
                   </li>
                   <li>
-                      <label for="name">сумма</label>
+                      <label for="name">Сумма</label>
                       <input type="text" id="count" name="balance">
                   </li>
 

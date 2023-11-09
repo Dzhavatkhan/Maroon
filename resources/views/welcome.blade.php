@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo&family=Roboto:wght@300&display=swap" rel="stylesheet">
     @vite('resources/css/app.css')
-    @vite('resources/js/app.js')
 </head>
 <body>
     <header>
@@ -216,6 +215,7 @@
     @include('forms.footer')
 
 
+    @vite('resources/js/app.js')
 
 
 </body>

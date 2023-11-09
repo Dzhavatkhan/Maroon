@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -112,6 +113,13 @@ class AdminController extends Controller
     {
         $id = $request->id;
         $user = User::findOrFail($id);
+        $product_in_cart = Order::query()->where('user_id', $id);
+        if ($product_in_cart->count() > 0) {
+            $product_in_cart->delete();
+        }
+        if (file_exists(public_path('img/profiles/'.$user->avatar))) {
+            unlink(public_path('img/profiles/'.$user->avatar));
+        }
         $user->delete();
         return response()->json([
             "status" => "200",

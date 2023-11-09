@@ -143,6 +143,19 @@
       text-decoration: none;
       cursor: pointer;
     }
+    .close_b {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close_b:hover,
+    .close_b:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
     .avatar {
       vertical-align: middle;
       width: 50px;
@@ -317,6 +330,18 @@
       bottom: 75px;
       left: 20px;
   }
+  .pay_btn{
+    position: relative;
+    top: -94px;
+    left: 195px;
+    background-color: transparent;
+    border: transparent;
+    color: #122947;
+    cursor: pointer;
+  }
+  .pay_btn:hover{
+    color: #224c8c;
+  }
   .product-card-footer{
       display: inline-flex;
       position: relative;
@@ -347,7 +372,6 @@
     font-weight: 500;
     line-height: 145%; /* 18.85px */
     position: relative;
-    left: 255px;
     left: 215px;
     width: 250px;
     bottom: 80px;
@@ -379,9 +403,7 @@
       font-weight: 400;
       line-height: normal;
   }
-  .price-word{
 
-  }
   .pay-click{
       margin-left: 60vw;
       width: 300px;

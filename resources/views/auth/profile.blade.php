@@ -18,7 +18,11 @@
                     <li> <a href="{{ route('catalog') }}">Каталог</a></li>
                     <li class="tablinks" onclick="openTab(event, 'cart-cart')" id="defaultOpen">Корзина</li>
                     <li class="tablinks" onclick="openTab(event, 'orders')">Заказы</li>
-                    <li id="card_btn">{{ Auth::user()->balance }} ₽</li>
+                        @if (Auth::user()->balance == null)
+                            <li id="card_btn"> 0 ₽</li>
+                        @else
+                            <li id="card_btn">{{ Auth::user()->balance }} ₽</li>
+                        @endif                    
                     <li class="user">
                         <img id="myBtn" src="{{ asset('img/profiles/'.Auth::user()->avatar) }}" alt="" title="Нажмите на аватар, чтобы редактировать профиль">
                     </li>
@@ -59,24 +63,43 @@
     <div id="snackbar">Добро пожаловать, {{Auth::user()->name}}</div>
 
     @vite('resources/js/profile.js')
-    @vite('resources/js/slider.js')
     <script>
-            let product_id = $('#product_id').val();
-            $('.pay-click').click(function (e) { 
-                e.preventDefault();
+            function pay_product(){
+
+              }
+              pay_product();
+
+
+            function pay_all(){
                 alert("pay")
-                $.ajax({
-                    type: "POST",
+                let products_id = document.querySelectorAll('#product_id')
+                console.log(product_id);
+                ajax_array(products_id);
+
+            }
+            function ajax_array(products_id) {
+                for (let index = 0; index < products_id.length; index++) {
+                    const product_id = products_id[index].value;
+                    
+                    console.log(product_id);
+                    $.ajax({
+                    type: "GET",
                     url: "{{ route('pay', Auth::user()->id) }}",
                     data: {product_id: product_id},
                     cache:false,
                     contentType:false,
 
                     success: function (response) {
-                        console.log('good');
-                    }
-                });
-            });
+                        console.log(response);
+                    },
+                    error: function(response){
+                        console.log(response);
+                    },
+                });                    
+                
+                }
+            
+            }              
  function show_hide_password(target){
         var img = document.getElementById("password_img");
         var input = document.getElementById('password-input');
@@ -167,5 +190,6 @@
             }
             document.getElementById("defaultOpen").click();
     </script>
+        @vite('resources/js/slider.js')
 </body>
 </html>

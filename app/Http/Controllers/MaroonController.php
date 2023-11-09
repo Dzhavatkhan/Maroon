@@ -90,7 +90,10 @@ class MaroonController extends Controller
      */
     public function pay(Request $request)
     {
-        $id[] = $request->product_id;
-        return  response()->json($id);
+        $id = $request->product_id;
+        return  response()->json([
+            "status" => 200,
+            "id" => $id
+        ], 200);
     }
 }
