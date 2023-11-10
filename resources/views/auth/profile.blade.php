@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <title>{{Auth::user()->name}}</title>
     @vite('resources/css/profile.css')
@@ -63,11 +64,62 @@
     <div id="snackbar">Добро пожаловать, {{Auth::user()->name}}</div>
 
     @vite('resources/js/profile.js')
-    <script>
-            function pay_product(){
+    <script>            
+            function ajax(product_id){
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('pay', Auth::user()->id) }}",
+                    data: {product_id: product_id},
+                    cache:false,
+                    contentType:false,
 
+                    success: function (response) {
+                        console.log(response.length);
+                        let json = JSON.stringify(response, (key, value) => {
+                            let msg = value.message;
+                            console.log(msg);
+
+
+                        }).replace(/^"(.+(?="$))"$/, '$1');  
+                        console.log(json);
+                        msg = json.replace(/^"(.+(?="$))"$/, '$1');
+                        if (json == 'Недостаточно средств') {
+                                    Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ошибка',
+                                    text: 'Недостаточно средств',
+                                });
+                            } 
+                            else if(msg == 'Недостаточно средств'){
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ошибка',
+                                    text: 'Недостаточно средств',
+                                });  
+                            }
+                            else{
+                                console.log(json, "= Недостаточно средств");
+                                console.log(json == "Недостаточно средств");
+                                
+                            }                    
+                    },
+                    error: function(response){
+                        let json = JSON.stringify(response, (key, value) => {
+                            console.log(value.message);
+
+                        });
+                        console.log(json);
+                        
+
+                    },
+                });                 
+            } 
+            function pay_product(id){
+                let product_id = id;
+                console.log(id);
+                ajax(product_id)
+                
               }
-              pay_product();
 
 
             function pay_all(){
@@ -82,24 +134,12 @@
                     const product_id = products_id[index].value;
                     
                     console.log(product_id);
-                    $.ajax({
-                    type: "GET",
-                    url: "{{ route('pay', Auth::user()->id) }}",
-                    data: {product_id: product_id},
-                    cache:false,
-                    contentType:false,
-
-                    success: function (response) {
-                        console.log(response);
-                    },
-                    error: function(response){
-                        console.log(response);
-                    },
-                });                    
+                    ajax(product_id)               
                 
                 }
             
-            }              
+            }    
+         
  function show_hide_password(target){
         var img = document.getElementById("password_img");
         var input = document.getElementById('password-input');

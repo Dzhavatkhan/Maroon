@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
+use App\Models\Order_composition;
 use App\Models\Product;
 use App\Models\Type_category;
 use App\Models\Type_skin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MaroonController extends Controller
@@ -91,9 +94,37 @@ class MaroonController extends Controller
     public function pay(Request $request)
     {
         $id = $request->product_id;
+        $user_id = Auth::user()->id;
+        $balance = Auth::user()->balance;
+        $product = Product::query()->where('product_id', $id)->first();
+        $user_order = Order_composition::query()->where('product_id', $id)->first();
+        $order_cart = Order::query()->where('product_id', $id)->where('user_id', $user_id)->first();
+        $price = $order_cart->order_price;
+        if ($balance < $price && $product->count() > 0) {
+            return response()->json([
+                'code'=> 200,
+                'message'=> 'Недостаточно средств'
+            ],200);
+        }
+        if ($user_order->count() < 1) {
+        $order_cmp = Order_composition::create([
+            "product_id" =>$id,
+            "order_id" => $order_cart->id,
+            "user_id" =>$user_id,
+            "quantity" => 1
+        ]);
+
+        } else {
+            $quantity = $user_order->quantity;
+            $quantity = $quantity + 1;
+            $user_order::query()->where('id', $user_order->id)->update(["quantity" => $quantity]);
+        }
+        $balance = $balance-$price;
+        User::query()->where('id', $user_id)->update(["balance" => $balance]);
+        $product->update(["quantity" => $product->quantity - 1]);
         return  response()->json([
             "status" => 200,
-            "id" => $id
+            "message" => "Success add"
         ], 200);
     }
 }
