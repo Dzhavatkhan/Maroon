@@ -96,7 +96,7 @@ class MaroonController extends Controller
         $id = $request->product_id;
         $user_id = Auth::user()->id;
         $balance = Auth::user()->balance;
-        $product = Product::query()->where('product_id', $id)->first();
+        $product = Product::query()->where('id', $id)->first();
         $user_order = Order_composition::query()->where('product_id', $id)->first();
         $order_cart = Order::query()->where('product_id', $id)->where('user_id', $user_id)->first();
         $price = $order_cart->order_price;
@@ -106,7 +106,8 @@ class MaroonController extends Controller
                 'message'=> 'Недостаточно средств'
             ],200);
         }
-        if ($user_order->count() < 1) {
+        
+        if ($user_order == null) {
         $order_cmp = Order_composition::create([
             "product_id" =>$id,
             "order_id" => $order_cart->id,

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MaroonController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,7 +38,11 @@ use Illuminate\Support\Facades\Route;
     Route::get('profile/getCart', [UserController::class, 'getCart'])->name('getCart');
     Route::get('catalog', [MaroonController::class,'getCatalog'])->name('catalog');
     Route::get('catalog/filter', [MaroonController::class, 'filter'])->name('filter');
-    Route::get('profile/id{id}/balance',[UserController::class, 'plus_balance'])->name('plus_balance');
+    Route::get('profile/id{id}/balance', function(){
+        $balance = Auth::user()->balance;
+        return view('ajax_blade.balance', compact('balance'));
+    })->name('balance');
+    Route::get('profile/id{id}/upd_balance',[UserController::class, 'plus_balance'])->name('plus_balance');
     Route::get('profile/id{id}/pay', [MaroonController::class,'pay'])->name('pay');
 // Route::middleware('auth')->group(function(){
     //admin-panel

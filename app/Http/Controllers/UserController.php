@@ -44,6 +44,7 @@ class UserController extends Controller
         $count = Order::all()->where('user_id', '=', $user->id)->count();
         $products = DB::select("SELECT DISTINCT products.*, type_categories.name AS 'category', orders.quantity AS 'qu' FROM `orders` LEFT JOIN `products` ON `orders`.`product_id` = `products`.`id` LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE `orders`.`user_id` = $user->id; ");
         return view('ajax_blade.count', compact('products', 'count', 'price_list'));
+        
     }
 
     public function signIn(){

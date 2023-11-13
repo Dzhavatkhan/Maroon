@@ -22,7 +22,7 @@
                         @if (Auth::user()->balance == null)
                             <li id="card_btn"> 0 ₽</li>
                         @else
-                            <li id="card_btn">{{ Auth::user()->balance }} ₽</li>
+                            <li id="card_btn"></li>
                         @endif                    
                     <li class="user">
                         <img id="myBtn" src="{{ asset('img/profiles/'.Auth::user()->avatar) }}" alt="" title="Нажмите на аватар, чтобы редактировать профиль">
@@ -64,7 +64,10 @@
     <div id="snackbar">Добро пожаловать, {{Auth::user()->name}}</div>
 
     @vite('resources/js/profile.js')
-    <script>            
+    <script>        
+    $(document).ready(function () {
+        balance();
+    });    
             function ajax(product_id){
                 $.ajax({
                     type: "GET",
@@ -74,34 +77,41 @@
                     contentType:false,
 
                     success: function (response) {
-                        console.log(response.length);
-                        let json = JSON.stringify(response, (key, value) => {
-                            let msg = value.message;
-                            console.log(msg);
+                        if (Array.isArray(response)) {
+                                let json = JSON.stringify(response, (key, value) => {
+                                let msg = value.message;
+                                console.log(msg);
 
 
-                        }).replace(/^"(.+(?="$))"$/, '$1');  
-                        console.log(json);
-                        msg = json.replace(/^"(.+(?="$))"$/, '$1');
-                        if (json == 'Недостаточно средств') {
+                            }).replace(/^"(.+(?="$))"$/, '$1');  
+                            console.log(json); 
+                            
+                            console.log("is array: ", Array.isArray(response));                         
+
+                            if (json == 'Недостаточно средств') {
+                                        Swal.fire({
+                                        icon: 'error',
+                                        title: 'Ошибка',
+                                        text: 'Недостаточно средств',
+                                    });
+                                } 
+                                else if(msg == 'Недостаточно средств'){
                                     Swal.fire({
-                                    icon: 'error',
-                                    title: 'Ошибка',
-                                    text: 'Недостаточно средств',
-                                });
-                            } 
-                            else if(msg == 'Недостаточно средств'){
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Ошибка',
-                                    text: 'Недостаточно средств',
-                                });  
-                            }
-                            else{
-                                console.log(json, "= Недостаточно средств");
-                                console.log(json == "Недостаточно средств");
-                                
-                            }                    
+                                        icon: 'error',
+                                        title: 'Ошибка',
+                                        text: 'Недостаточно средств',
+                                    });  
+                                }
+                                else{
+                                    console.log(json, "= Недостаточно средств");
+                                    console.log(json == "Недостаточно средств");
+                                    
+                                }
+                        }      
+                        else{
+                            console.log(response);
+                        }
+                        balance() 
                     },
                     error: function(response){
                         let json = JSON.stringify(response, (key, value) => {
@@ -139,6 +149,19 @@
                 }
             
             }    
+            function balance(){
+                let balance = {{ Auth::user()->balance }}
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('balance', Auth::user()->id) }}",
+                    data: { balance: balance},
+                    cache: false,
+                    processData:false,
+                    success: function (data) {
+                        $('#card_btn').html(data)
+                    }
+                });
+            }
          
  function show_hide_password(target){
         var img = document.getElementById("password_img");
