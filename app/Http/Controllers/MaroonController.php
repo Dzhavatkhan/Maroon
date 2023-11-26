@@ -59,27 +59,41 @@ class MaroonController extends Controller
         $body_query = $request->category_body;
         $face_query = $request->category_face;
         $products = DB::select("SELECT *,products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id ");
-        if ($skin == '' && $body_query == '' && $face_query == '') {
-            $q = 0;
+
+        if($skin == null && $body_query == null && $face_query == null){
+            $products = DB::select("SELECT *, products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id");
+            $count = DB::select("SELECT COUNT(*) FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id ");
         }
-        elseif($skin == 'null' && $body_query == 'null' && $face_query == 'null'){
-            $q = 0;
+        elseif($body_query == null && $skin == null){
+            $products = DB::select("SELECT *, products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE  products.type_categories_id = $face_query");
+            $count = DB::select("SELECT COUNT(*) FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE  products.type_categories_id = $face_query");
+
         }
-        elseif($skin == null && $body_query == null && $face_query == null){
-            $q = 0;
+        elseif($skin == null){
+            $products = DB::select("SELECT *, products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE products.type_categories_id = $face_query OR products.type_categories_id = $body_query");
+            $count = DB::select("SELECT COUNT(*) FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE products.type_categories_id = $face_query OR products.type_categories_id = $body_query");
+        }
+        elseif($body_query == null && $face_query ==null){
+            $products = DB::select("SELECT *, products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE products.type_skins_id = $skin");
+            $count = DB::select("SELECT COUNT(*) FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE products.type_skins_id = $skin");
+        }
+        elseif($face_query == null && $skin == null){
+            $products = DB::select("SELECT *, products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE products.type_categories_id = $body_query");
+            $count = DB::select("SELECT COUNT(*) FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE products.type_categories_id = $body_query");
+
         }
         else {
-            $products = DB::select("SELECT *, products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE products.type_categories_id = $body_query OR products.type_categories_id = $face_query OR products.type_skins_id = $skin");
-            $count = DB::select("SELECT COUNT(*) FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE products.type_categories_id = $body_query OR products.type_categories_id = $face_query OR products.type_skins_id = $skin");
-            if ($count == 0) {
-                $q = 0;
-            }
+            $products = DB::select("SELECT *, products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE (products.type_categories_id = $body_query OR products.type_categories_id = $face_query) AND products.type_skins_id = $skin");
+            $count = DB::select("SELECT *, products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE (products.type_categories_id = $body_query OR products.type_categories_id = $face_query) AND products.type_skins_id = $skin");
         }
-        
+        if ($count == 0) {
+            $q = 0;
+        }
+
 
             return view('ajax_blade.filter', compact('q','body_query','face_query','skin', 'products'));
      }
-        
+
     /**
      * Update the specified resource in storage.
      */
@@ -100,13 +114,14 @@ class MaroonController extends Controller
         $user_order = Order_composition::query()->where('product_id', $id)->first();
         $order_cart = Order::query()->where('product_id', $id)->where('user_id', $user_id)->first();
         $price = $order_cart->order_price;
+
         if ($balance < $price && $product->count() > 0) {
             return response()->json([
                 'code'=> 200,
                 'message'=> 'Недостаточно средств'
             ],200);
         }
-        
+
         if ($user_order == null) {
         $order_cmp = Order_composition::create([
             "product_id" =>$id,

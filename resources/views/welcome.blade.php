@@ -17,8 +17,8 @@
                 <img class="nav_svg" src="{{asset('img/MAROON.svg')}}" alt="">
                 <ul class="nav_menu">
                     <li><a href="/catalog">Каталог</a></li>
-                    <li><a href="">О нас</a></li>
-                    <li><a href="">Контакты</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contacts">Контакты</a></li>
                 </ul>
                 <ul class="nav_icons">
                     @guest
@@ -138,7 +138,7 @@
         <!-- -->
         <!-- -->
         <!-- -->
-        <section class="history">
+        <section class="history" id="about">
             <p class="history_text">“Мы стремимся сделать уход за кожей доступным
                 и приятным ритуалом для всех, кто хочет
                 заботиться о себе и своем теле”</p>
@@ -177,7 +177,7 @@
         <!-- -->
         <!-- -->
         <!-- -->
-        <section class="contact_map">
+        <section class="contact_map" id="contacts">
             <div class="contact-map-text">
                 <p class="contact_map_title">
                     Контакты

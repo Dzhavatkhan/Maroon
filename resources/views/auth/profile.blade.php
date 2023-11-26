@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="shortcut icon" href="{{ asset('img/profiles/'.Auth::user()->avatar) }}" type="image/png">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <title>{{Auth::user()->name}}</title>
     @vite('resources/css/profile.css')
@@ -23,7 +24,7 @@
                             <li id="card_btn"> 0 ₽</li>
                         @else
                             <li id="card_btn"></li>
-                        @endif                    
+                        @endif
                     <li class="user">
                         <img id="myBtn" src="{{ asset('img/profiles/'.Auth::user()->avatar) }}" alt="" title="Нажмите на аватар, чтобы редактировать профиль">
                     </li>
@@ -64,10 +65,10 @@
     <div id="snackbar">Добро пожаловать, {{Auth::user()->name}}</div>
 
     @vite('resources/js/profile.js')
-    <script>        
+    <script>
     $(document).ready(function () {
         balance();
-    });    
+    });
             function ajax(product_id){
                 $.ajax({
                     type: "GET",
@@ -83,10 +84,10 @@
                                 console.log(msg);
 
 
-                            }).replace(/^"(.+(?="$))"$/, '$1');  
-                            console.log(json); 
-                            
-                            console.log("is array: ", Array.isArray(response));                         
+                            }).replace(/^"(.+(?="$))"$/, '$1');
+                            console.log(json);
+
+                            console.log("is array: ", Array.isArray(response));
 
                             if (json == 'Недостаточно средств') {
                                         Swal.fire({
@@ -94,24 +95,24 @@
                                         title: 'Ошибка',
                                         text: 'Недостаточно средств',
                                     });
-                                } 
+                                }
                                 else if(msg == 'Недостаточно средств'){
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Ошибка',
                                         text: 'Недостаточно средств',
-                                    });  
+                                    });
                                 }
                                 else{
                                     console.log(json, "= Недостаточно средств");
                                     console.log(json == "Недостаточно средств");
-                                    
+
                                 }
-                        }      
+                        }
                         else{
                             console.log(response);
                         }
-                        balance() 
+                        balance()
                     },
                     error: function(response){
                         let json = JSON.stringify(response, (key, value) => {
@@ -119,16 +120,16 @@
 
                         });
                         console.log(json);
-                        
+
 
                     },
-                });                 
-            } 
+                });
+            }
             function pay_product(id){
                 let product_id = id;
                 console.log(id);
                 ajax(product_id)
-                
+
               }
 
 
@@ -142,13 +143,13 @@
             function ajax_array(products_id) {
                 for (let index = 0; index < products_id.length; index++) {
                     const product_id = products_id[index].value;
-                    
+
                     console.log(product_id);
-                    ajax(product_id)               
-                
+                    ajax(product_id)
+
                 }
-            
-            }    
+
+            }
             function balance(){
                 let balance = {{ Auth::user()->balance }}
                 $.ajax({
@@ -162,7 +163,7 @@
                     }
                 });
             }
-         
+
  function show_hide_password(target){
         var img = document.getElementById("password_img");
         var input = document.getElementById('password-input');

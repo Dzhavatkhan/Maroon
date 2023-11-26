@@ -1,7 +1,7 @@
 <form action="{{route('editProduct', $product->id)}}" method="POST", enctype="multipart/form-data">
 <!-- Modal Header -->
 <div class="modal-header">
-    <h4 class="modal-title">Изменить товар</h4>
+    <h4 class="modal-title text-black">Изменить товар</h4>
     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
   </div>
 

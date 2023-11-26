@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('order_compositions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders');
+            $table->foreignId('order_id');
             $table->foreignId('product_id')->constrained('products');
             $table->bigInteger('quantity')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

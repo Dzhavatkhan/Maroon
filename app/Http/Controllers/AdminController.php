@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Order;
+use App\Models\Order_composition;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,6 +43,11 @@ class AdminController extends Controller
     public function getAdmins(){
         $admins = Admin::all();
         return view("ajax_blade.admins", compact('admins'));
+    }
+    public function getOrders(){
+        $orders = DB::select("SELECT order_compositions.id, orders.order_price, products.product_name AS 'name', order_compositions.created_at, users.name AS 'user_name' FROM `order_compositions` LEFT JOIN orders ON orders.id = order_compositions.id LEFT JOIN products ON order_compositions.product_id = products.id LEFT JOIN users ON users.id = orders.user_id");
+        $count = DB::select("SELECT COUNT(*) FROM `order_compositions` LEFT JOIN orders ON orders.id = order_compositions.id LEFT JOIN products ON order_compositions.product_id = products.id LEFT JOIN users ON users.id = orders.user_id");
+        return view('ajax_blade.orders', compact('orders','count'));
     }
     public function getProducts(){
         $products = DB::select("SELECT *, type_skins.name AS 'skin', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id LEFT JOIN type_skins ON products.type_skins_id = type_skins.id ");

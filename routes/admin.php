@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
         Route::get('/panel', [AdminController::class, 'index'])->name('admin');
         Route::get('/panel/users', [AdminController::class, 'getUsers'])->name('getUsers');
         Route::get('/panel/admins', [AdminController::class, 'getAdmins'])->name('getAdmins');
+        Route::get('/panel/orders', [AdminController::class, 'getOrders'])->name('getOrders');
         Route::get('/panel/products', [AdminController::class, 'getProducts'])->name('getProducts');
         Route::post('/panel/add_products', [AdminController::class, 'addProduct'])->name('addProduct');
         Route::get('logout', [AdminController::class, 'admin_logout'])->name('admin-logout');
