@@ -19,15 +19,14 @@
   <div class="mb-3 mt-1">
     <input type="file" class="form-control" id="email"  name="image">
   </div>
-  <div class="mb-3 mt-1">
-    <p>Категории</p>
+  <div class=" mt-1 col">
+    <label>Категории</label>
     <div class="row">
         @include('forms.cheked_form')
     </div>
   </div>
 
-
-
+<div class="row">
   <div class="form-floating mb-3 mt-3">
     <textarea class="form-control" id="comment" name="description" >{{$product->description}}</textarea>
   </div>

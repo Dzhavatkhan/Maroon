@@ -17,18 +17,17 @@
                 <input type="file" class="form-control" id="email"  name="image">
               </div>
               <div class="mb-3 mt-1">
-                <p>Категории</p>
+
                 <div class="row">
                   @foreach ($categories as $category)
                     <div class="col">
                       <div class="form-check">
-
                         @if ($category->name == "Уход для тела")
                         <label class="form-check-label a{{ $category->name }}" for="check1">{{ $category->name }}</label>
                         <input class="form-check-input body" id="body" type="radio" name="category" id="check1" onchange="check()" value="{{ $category->name }}">
                         @elseif($category->name == "Уход для лица")
                         <label class="form-check-label a{{ $category->name }}" for="check1">{{ $category->name }}</label>
-                        <input class="form-check-input face" id="face" type="radio" id="check1" name="category"  onchange="check()" value="{{ $category->name }}">
+                        <input class="form-check-input face" id="face" type="radio"  name="category"  onchange="check()" value="{{ $category->name }}">
                         @endif
 
                       </div>

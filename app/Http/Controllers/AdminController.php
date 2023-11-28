@@ -118,7 +118,7 @@ class AdminController extends Controller
     public function delete_user(Request $request)
     {
         $id = $request->id;
-        $user = User::findOrFail($id);
+        $user = User::query()->where("user_id", $id)->first();
         $product_in_cart = Order::query()->where('user_id', $id);
         if ($product_in_cart->count() > 0) {
             $product_in_cart->delete();

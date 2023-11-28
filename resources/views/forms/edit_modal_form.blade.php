@@ -5,7 +5,7 @@
       <div class="modal_container">
           <form id="edit_form" enctype="multipart/form-data" method="GET" action="{{route('update_user')}}">
               @csrf
-              @method('PATCH')
+              @method('PUT')
               <span class="close">&times;</span>
               <ul>
                   <li>

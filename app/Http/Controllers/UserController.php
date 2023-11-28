@@ -44,7 +44,7 @@ class UserController extends Controller
         $count = Order::all()->where('user_id', '=', $user->id)->count();
         $products = DB::select("SELECT DISTINCT products.*, type_categories.name AS 'category', orders.quantity AS 'qu' FROM `orders` LEFT JOIN `products` ON `orders`.`product_id` = `products`.`id` LEFT JOIN type_categories ON products.type_categories_id = type_categories.id WHERE `orders`.`user_id` = $user->id; ");
         return view('ajax_blade.count', compact('products', 'count', 'price_list'));
-        
+
     }
 
     public function signIn(){
@@ -125,7 +125,7 @@ class UserController extends Controller
         $balance = str_replace(' ', '', $request->balance);
         $balance = $balance + $us_b;
         User::where('id', $id)->update(
-            [ 
+            [
                 "balance" => $balance
             ]
             );
@@ -136,7 +136,13 @@ class UserController extends Controller
         $id  = Auth::user()->id;
         $user = User::findOrFail($id);
         $avatar = $request->avatar;
-        $avatar_name = time().'.'.$avatar->extension();
+        if (!isset($avatar)) {
+            $avatar = User::query()->where("id", $id)->first()->avatar;
+        }
+        else{
+            $avatar = time().'.'.$avatar->extension();
+
+        }
         $password = $request->password;
             if ($request->password == $request->password_conf) {
                 if ($password == null) {
@@ -151,7 +157,7 @@ class UserController extends Controller
                         if (file_exists($del_file)) {
                             unlink(public_path('img/profiles/'.$user->avatar));
                         }
-                        $request->avatar->move(public_path('img/profiles'), $avatar_name);
+                        $request->avatar->move(public_path('img/profiles'), $avatar);
                     }
 
 
@@ -160,7 +166,7 @@ class UserController extends Controller
                 [
                     "name" => $request->name,
                     "login"=> $request->login,
-                    "avatar" => $avatar_name,
+                    "avatar" => $avatar,
                     "password" => bcrypt($password)
                 ]
                 );
