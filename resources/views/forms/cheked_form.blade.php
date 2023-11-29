@@ -1,19 +1,5 @@
-<div class="col-3">
-    <div class="form-check">
-        <label onchange="check()" class="form-check-label " for="face" >Для лица</label>
-        <input onchange="check()" class="form-check-input" type="radio" id="face"  name="category">
-    </div>
 
-</div>
-
-<div class="col-3">
-    <div class="form-check">
-        <label class="form-check-label " for="body">Для тела</label>
-        <input class="form-check-input" type="radio" id="ed_body" onchange="check()" name="category">
-    </div>
-</div>
-
-<div class="sup_body" id="surp_body">
+<div class="fff">
     @foreach ($cat_for_body as $c_f_b)
     @if ($product->category === "$c_f_b->name")
         <div class="form-check">
@@ -28,7 +14,7 @@
     @endif
     @endforeach
 </div>
-<div class="sup_face mt-3" id="surp_face">
+<div class="fof">
     @foreach ($cat_for_face as $c_f_f)
         @if ($product->category === "$c_f_f->name")
         <div class="form-check">
@@ -46,4 +32,35 @@
     @endforeach
 </div>
 
+<script>
+        console.log(document.getElementById('face_edit'), document.querySelector("#body_edit"));
+        function check_edit(){
+            console.log('checking...');
+        let f_checkbox = document.getElementById('face_edit')
+        let b_checkbox = document.getElementById('body_edit')
 
+        let f_surpize = document.getElementById('surp_face');
+        let b_surpize = document.getElementById('surp_body');
+
+        console.log(f_checkbox,b_checkbox);
+        if (f_checkbox.checked) {
+            f_surpize.classList.remove('sup_face')
+
+            b_surpize.classList.remove('check_plus')
+            b_surpize.classList.add('sup_body')
+
+            f_surpize.classList.add('check_plus')
+        }
+        else if(b_checkbox.checked){
+            b_surpize.classList.remove('sup_body')
+
+            f_surpize.classList.remove('check_plus')
+            f_surpize.classList.add('sup_face')
+
+            b_surpize.classList.add('check_plus')
+        }
+        else {
+            console.log(0);
+        }
+        }
+</script>
