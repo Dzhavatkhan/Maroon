@@ -50,7 +50,7 @@ class AdminController extends Controller
         return view('ajax_blade.orders', compact('orders','count'));
     }
     public function getProducts(){
-        $products = DB::select("SELECT products.*, type_skins.name AS 'skin', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id LEFT JOIN type_skins ON products.type_skins_id = type_skins.id ");
+        $products = DB::select("SELECT products.*, type_skins.name AS 'skin', type_categories.name AS 'category', type_categories.categories_id AS 'ca_id' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id LEFT JOIN type_skins ON products.type_skins_id = type_skins.id ");
         $products_count = Product::all()->count();
         $cat_for_body = DB::select("SELECT * FROM type_categories WHERE categories_id = 2;");
         $cat_for_face = DB::select("SELECT * FROM type_categories WHERE categories_id = 1;");

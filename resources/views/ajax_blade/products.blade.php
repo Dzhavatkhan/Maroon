@@ -10,23 +10,21 @@
             <td>{{$product->category}}, {{$product->skin}} кожа</td>
             <td>{{$product->quantity}}</td>
             <td>{{$product->price}}</td>
-            <td><a class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#m{{$product->id}}" >Изменить</button>
-                <div class="modal" id="m{{$product->id}}">
-                    <form action="{{route('editProduct', $product->id)}}" method="GET", enctype="multipart/form-data">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
+            <td><a class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#m{{$product->id}}" >Изменить</a>
+    <div class="modal" id="m{{$product->id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        @include('forms.form_for_edit')
+      </div>
+    </div>
+  </div>
+</td>
 
-                        @include('forms.form_for_edit')
-
-                      </div>
-                    </div>
-                </form>
-                </div>
-            </td>
             <td><button class="btn btn-danger" onclick="deleteProduct({{$product->id}})">Удалить</button></td>
 
           </tr>
         @endforeach
+
 
 
     @else
@@ -35,6 +33,5 @@
     <tr>
         <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" id="myModal">Добавить</button></td>
     </tr>
-
 
 

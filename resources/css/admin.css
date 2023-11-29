@@ -1,0 +1,12 @@
+.sup_body{
+    display: none;
+  }
+  .sup_face{
+    display: none ;
+  }
+  .check_plus{
+    display: block;
+  }
+  h2,h3,h4, label, p{
+      color: black;
+  }

@@ -4,25 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <title>Admin dashboard</title>
-    <style>
-        .sup_body{
-          display: none;
-        }
-        .sup_face{
-          display: none ;
-        }
-        .check_plus{
-          display: block;
-        }
-        h2,h3,h4, label, p{
-            color: black;
-        }
+    @vite("resources/css/admin.css")
 
-      </style>
 </head>
 <body>
     <div class="container">
@@ -86,6 +73,7 @@
                                   <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
                                 @include('forms.form_for_add')
+
                               </div>
                             </div>
                           </div>
@@ -163,9 +151,7 @@
             </div>
         </div>
     </div>
-
     <script>
-        console.log(document.getElementById('face'), document.querySelector("#body"), document.getElementById('ed_body'));
         function check(){
             console.log('checking...');
         let f_checkbox = document.getElementById('face')
@@ -174,7 +160,6 @@
         let f_surpize = document.getElementById('surp_face');
         let b_surpize = document.getElementById('surp_body');
 
-        console.log(f_checkbox,b_checkbox);
         if (f_checkbox.checked) {
             f_surpize.classList.remove('sup_face')
 
@@ -182,6 +167,7 @@
             b_surpize.classList.add('sup_body')
 
             f_surpize.classList.add('check_plus')
+            console.log("face check");
         }
         else if(b_checkbox.checked){
             b_surpize.classList.remove('sup_body')
@@ -190,12 +176,45 @@
             f_surpize.classList.add('sup_face')
 
             b_surpize.classList.add('check_plus')
+            console.log("body check");
         }
         else {
-            console.log(0);
+            console.log(0, );
         }
         }
-        
+
+
+        function check_edit(){
+            console.log('checking...');
+        let f_checkbox = document.getElementById('face_edit')
+        let b_checkbox = document.getElementById('body_edit')
+
+        let f_surpize = document.getElementById('surp_face_edit');
+        let b_surpize = document.getElementById('surp_body_edit');
+
+        if (f_checkbox.checked) {
+            f_surpize.classList.remove('sup_face')
+
+            b_surpize.classList.remove('check_plus')
+            b_surpize.classList.add('sup_body')
+
+            f_surpize.classList.add('check_plus')
+            console.log("face check_edit");
+        }
+        else if(b_checkbox.checked){
+            b_surpize.classList.remove('sup_body')
+
+            f_surpize.classList.remove('check_plus')
+            f_surpize.classList.add('sup_face')
+
+            b_surpize.classList.add('check_plus')
+            console.log("body check");
+        }
+        else {
+            console.log(0, );
+        }
+        }
+
 
 
 
