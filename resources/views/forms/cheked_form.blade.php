@@ -1,8 +1,13 @@
 @foreach ($categories as $category)
 <div class="col">
   <div class="form-check">
-    <label class="form-check-label a{{ $category->name }}" for="check1">f{{ $category->name }}</label>
-    <input class="form-check-input body" id="body_edit" type="radio" name="category" id="check1" onchange="check()" value="{{ $category->name }}" checked>
+    @if ($category->id == $product->ca_id)
+    <label class="form-check-label a{{ $category->name }}" for="check1">{{ $category->name }}</label>
+    <input class="form-check-input face" id="face_edit" type="radio" name="category" id="check1" onchange="check_edit()" value="{{ $category->name }}" checked>
+    @else
+    <label class="form-check-label a{{ $category->name }}" for="check1">{{ $category->name }}</label>
+    <input class="form-check-input body" id="body_edit" type="radio" name="category" id="check1" onchange="check_edit()" value="{{ $category->name }}" >
+    @endif
 
   </div>
 </div>
@@ -37,6 +42,21 @@
                 <input class="form-check-input" id="" type="radio" id="check1" name="type_categories_id" value="{{ $c_f_f->id }}">
             </div>
         @endif
+    @endforeach
+</div>
+<div class="mt2">
+    @foreach ($skins as $skin)
+    @if ($skin->name == $product->skin)
+        <div class="form-check ">
+            <label for="skin"></label>
+            <input type="checkbox" value="{{$skin->id}}" id="skin">
+        </div>
+    @else
+        <div class="form-check ">
+            <label for="skin"></label>
+            <input type="checkbox" value="{{$skin->id}}" id="skin">
+        </div>
+    @endif
     @endforeach
 </div>
 

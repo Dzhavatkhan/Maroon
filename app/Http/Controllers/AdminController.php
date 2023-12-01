@@ -60,8 +60,25 @@ class AdminController extends Controller
 
 
     }
-    public function update_product(Request $request, $id){
-        dd($request->all());
+    public function update_product(Request $request){
+        $id = $request->id;
+        if (!isset($request->image)) {
+            $image = Product::query()->where('id', $id)->first()->image;
+        }
+        else{
+            $image = uniqid().time().'.'.$request->image->extension();
+        }
+        $product = Product::query()->where('id', $id);
+        $product->update([
+            "product_name",
+            "type_categories" => $request->type_categories_id,
+            "type_skins",
+            "brand",
+            "image",
+            "description",
+            "quantity",
+            "price"
+        ]);
     }
 
     public function admin_logout(){

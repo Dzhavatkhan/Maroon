@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('/panel/add_products', [AdminController::class, 'addProduct'])->name('addProduct');
         Route::get('logout', [AdminController::class, 'admin_logout'])->name('admin-logout');
 
-        Route::put('edit_to_product', [AdminController::class, 'update_product'])->name('editProduct');
+        Route::post('edit_to_product', [AdminController::class, 'update_product'])->name('editProduct');
 
         Route::get('delete_product', [AdminController::class, 'destroy'])->name('delete_product');
         Route::get('delete_admin_id', [AdminController::class, 'delete_admin'])->name('delete_admin');
