@@ -1,12 +1,21 @@
 @foreach ($admins as $a)
-    <tr>
-        <td>{{$a->id}}</td>
-        <td>{{$a->admin_name}}</td>
-        <td>{{$a->login}}</td>
+@if ($a->login == "mega_brain")
+<tr>
+    <td>{{$a->id}}</td>
+    <td>{{$a->admin_name}}</td>
+    <td>{{$a->login}}</td>
+</tr>
+@else
+<tr>
+    <td>{{$a->id}}</td>
+    <td>{{$a->admin_name}}</td>
+    <td>{{$a->login}}</td>
 
-            <td><button class="btn btn-danger" onclick="deleteAdmin({{$a->id}})">Delete</button></td>
+        <td><button class="btn btn-danger" onclick="deleteAdmin({{$a->id}})">Delete</button></td>
 
-    </tr>
+</tr>
+@endif
+
 @endforeach
 <tr>
 

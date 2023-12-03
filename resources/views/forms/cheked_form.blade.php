@@ -44,39 +44,23 @@
         @endif
     @endforeach
 </div>
-<div class="mt2">
+<div class="mt-2">
+    <label for="">Тип кожи</label>
     @foreach ($skins as $skin)
     @if ($skin->name == $product->skin)
         <div class="form-check ">
-            <label for="skin"></label>
-            <input type="checkbox" value="{{$skin->id}}" id="skin">
+            <label class="form-check-label" for="skin">{{ $skin->name }}</label>
+            <input type="radio" class="form-check-input" name="type_skins_id" value="{{$skin->id}}" id="skin" checked>
         </div>
     @else
-        <div class="form-check ">
-            <label for="skin"></label>
-            <input type="checkbox" value="{{$skin->id}}" id="skin">
+        <div class="form-check">
+            <label class="form-check-label" for="skin">{{ $skin->name }}</label>
+            <input type="radio" class="form-check-input" name="type_skins_id" value="{{$skin->id}}" id="skin">
         </div>
     @endif
     @endforeach
 </div>
 
 <script>
-        let f_checkbox = document.getElementById('face_edit')
-        let b_checkbox = document.getElementById('body_edit')
-        let f_surpize = document.getElementById('surp_face_edit');
-        let b_surpize = document.getElementById('surp_body_edit');
-        if (f_checkbox.checked ) {
-            f_surpize.classList.remove('sup_face')
-            b_surpize.classList.remove('check_plus')
-        }
-        else{
-            console.log(0);
-        }
-        if (b_checkbox.checked) {
-            b_surpize.classList.remove('sup_body')
-            b_surpize.classList.add('check_plus')
-        }
-        else{
-            console.log(0);
-        }
+       
 </script>

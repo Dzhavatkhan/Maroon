@@ -139,6 +139,7 @@ class MaroonController extends Controller
             "product_id" =>$id,
             "order_id" => $order_cart->id,
             "user_id" =>$user_id,
+            "status" => "В обработке",
             "quantity" => 1
         ]);
 

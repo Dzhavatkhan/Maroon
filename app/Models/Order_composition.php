@@ -9,6 +9,6 @@ class Order_composition extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "order_id", "product_id", "quantity"
+        "order_id", "product_id", "quantity", "status"
     ];
 }

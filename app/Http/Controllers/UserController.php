@@ -29,8 +29,8 @@ class UserController extends Controller
         $prosto = 1;
         $count = Order::all()->where("user_id", '=', $user->id)->count();
         $orders = DB::table('orders')->where("user_id", '=', $user->id);
-        $recomendations = DB::select("SELECT DISTINCT * FROM `products` LEFT JOIN orders ON products.id = orders.product_id WHERE orders.user_id != $user->id ORDER BY products.created_at ASC");
-        $rec_count = Product::query()->leftJoin('orders', 'products.id','orders.product_id')->where('orders.user_id', '!=', $user->id)->count();
+        $recomendations = Product::query()->leftJoin('orders', 'products.id','orders.product_id')->where('orders.product_id', '!=', 'products.id')->where("orders.user_id", $user->id);
+        $rec_count = Product::query()->leftJoin('orders', 'products.id','orders.product_id')->where('orders.product_id', '!=', 'products.id')->where("orders.user_id", $user->id)->count();
         $products = DB::select("SELECT DISTINCT orders.quantity AS 'ordr_qnt', products.* FROM `orders` LEFT JOIN `products` ON `orders`.`product_id` = `products`.`id`;");
         return view('auth.profile', compact('user', 'products', 'count', 'recomendations', 'rec_count'));
     }

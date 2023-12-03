@@ -45,8 +45,10 @@ class AdminController extends Controller
         return view("ajax_blade.admins", compact('admins'));
     }
     public function getOrders(){
-        $orders = DB::select("SELECT order_compositions.id, orders.order_price, products.product_name AS 'name', order_compositions.created_at, users.name AS 'user_name' FROM `order_compositions` LEFT JOIN orders ON orders.id = order_compositions.id LEFT JOIN products ON order_compositions.product_id = products.id LEFT JOIN users ON users.id = orders.user_id");
-        $count = DB::select("SELECT COUNT(*) FROM `order_compositions` LEFT JOIN orders ON orders.id = order_compositions.id LEFT JOIN products ON order_compositions.product_id = products.id LEFT JOIN users ON users.id = orders.user_id");
+        $orders = DB::select("SELECT order_compositions.created_at,order_compositions.id, order_compositions.status,  products.product_name AS 'name', users.name AS 'user', orders.order_price * order_compositions.quantity AS 'price' FROM order_compositions LEFT JOIN orders ON order_compositions.order_id = orders.id LEFT JOIN products ON order_compositions.product_id = products.id LEFT JOIN users ON orders.user_id = users.id");
+        // $orders = Order_composition::query()->leftJoin("orders", "order_compositions.order_id", "orders.id")->leftJoin("products", "order_compositions.product_id", "products.id")->leftJoin("users", "orders.user_id", "users.id");
+        // ->select("order_compositions.created_at,order_compositions.id, order_compositions.status, products.product_name AS 'name', users.name AS 'user',orders.order_price * order_compositions.quantity AS 'price' ");
+        $count = DB::select("SELECT COUNT(*) FROM order_compositions LEFT JOIN orders ON order_compositions.order_id = orders.id LEFT JOIN products ON order_compositions.product_id = products.id LEFT JOIN users ON orders.user_id = users.id");
         return view('ajax_blade.orders', compact('orders','count'));
     }
     public function getProducts(){
@@ -60,25 +62,59 @@ class AdminController extends Controller
 
 
     }
-    public function update_product(Request $request){
-        $id = $request->id;
-        if (!isset($request->image)) {
-            $image = Product::query()->where('id', $id)->first()->image;
+    public function accept(Request $request){
+        $id = $request->oc;
+        $accept = Order_composition::query()->where("id", $id)->update(["status" => "Оформлен"]);
+        if ($accept) {
+            return response()->json([
+                "message" => $accept
+            ], 200);
         }
         else{
+            if ($accept) {
+                return response()->json([
+                    "message" => "lox"
+                ], 502);
+            }
+        }
+    }
+    public function cancel(Request $request){
+        $id = $request->oc;
+        $order = Order_composition::query()->where("id", $id);
+        $cancel = $order->delete();
+        if ($cancel) {
+            return response()->json([
+                "message" => $cancel
+            ], 200);
+        }
+        else{
+            return response()->json([
+                "message" => "not working"
+            ], 500);
+        }
+    }
+    public function update_product(Request $request){
+        $id = $request->id;
+        $image = Product::query()->where('id', $id)->first()->image;
+        if (isset($request->image)) {
+            if (file_exists("img/products/".$image)) {
+                unlink("img/products/".$image);
+            }
             $image = uniqid().time().'.'.$request->image->extension();
+            $request->image->move(public_path('img/products'), $image);
         }
         $product = Product::query()->where('id', $id);
         $product->update([
-            "product_name",
-            "type_categories" => $request->type_categories_id,
-            "type_skins",
-            "brand",
-            "image",
-            "description",
-            "quantity",
-            "price"
+            "product_name"=> $request->product_name,
+            "type_categories_id" => $request->type_categories_id,
+            "type_skins_id" => $request->type_skins_id,
+            "brand" => $request->brand,
+            "image" => $image,
+            "description" => $request->description,
+            "quantity" => $request->quantity,
+            "price" => $request->price
         ]);
+        return redirect()->back();
     }
 
     public function admin_logout(){
@@ -135,8 +171,8 @@ class AdminController extends Controller
     public function delete_user(Request $request)
     {
         $id = $request->id;
-        $user = User::query()->where("user_id", $id)->first();
-        $product_in_cart = Order::query()->where('user_id', $id);
+        $user = User::query()->where("id", $id)->first();
+        $product_in_cart = Order::query()->where('id', $id);
         if ($product_in_cart->count() > 0) {
             $product_in_cart->delete();
         }

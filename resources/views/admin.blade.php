@@ -139,6 +139,7 @@
                                 <th>ID</th>
                                 <th>Название продукта</th>
                                 <th>Имя пользователя</th>
+                                <th>Статус</th>
                                 <th>Сумма</th>
                                 <th>Дата заказа</th>
                               </tr>
@@ -160,6 +161,8 @@
         let f_surpize = document.getElementById('surp_face');
         let b_surpize = document.getElementById('surp_body');
 
+
+
         if (f_checkbox.checked) {
             f_surpize.classList.remove('sup_face')
 
@@ -179,9 +182,10 @@
             console.log("body check");
         }
         else {
-            console.log(0, );
+            console.log(0);
         }
         }
+
 
 
         function check_edit(){
@@ -215,6 +219,24 @@
         }
         }
 
+        function checking(){
+            let face = document.getElementById('face_edit')
+        let body = document.getElementById('body_edit')
+            if (face.checked ) {
+            f_surpize.classList.remove('sup_face')
+            b_surpize.classList.remove('check_plus')
+        }
+        else{
+            console.log(0);
+        }
+        if (body.checked) {
+            b_surpize.classList.remove('sup_body')
+            b_surpize.classList.add('check_plus')
+        }
+        else{
+            console.log(0);
+        }
+        }
 
 
 
@@ -292,6 +314,34 @@
                 }
             });
         }
+        function accept(id){
+            $.ajax({
+                type: "GET",
+                url: "{{route('accept')}}",
+                data:{oc:id},
+                success: function (response) {
+                    console.log(response);
+                    getOrders();
+                },
+                error: function(err){
+                    console.error(err);
+                }
+});
+        }
+        function cancel(id){
+            $.ajax({
+                type: "GET",
+                url: "{{route('cancel')}}",
+                data:{oc:id},
+                success: function (response) {
+                    console.log(response);
+                    getOrders();
+                },
+                error: function(err){
+                    console.error(err);
+                }
+        });
+    }
         function getAdmins(){
             let admins = 'admins';
             $.ajax({

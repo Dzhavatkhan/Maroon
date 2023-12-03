@@ -49,6 +49,7 @@
             <h2>gfjfds</h2>
         </div>
         @if ($rec_count != 0)
+            {{$rec_count}}
             @include('forms.may_like')
         @endif
 
