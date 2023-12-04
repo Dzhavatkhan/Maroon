@@ -1,5 +1,5 @@
 @foreach ($orders as $order)
-    @if ($order->status == "В рассмотрении" || $order->status == null)
+    @if ($order->status == "В рассмотрении" || $order->status == null || $order->status == "null")
         <td>{{ $order->id }}</td>
         <td>{{ $order->name}}</td>
         <td>{{ $order->user }}</td>

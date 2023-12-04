@@ -62,5 +62,27 @@
 </div>
 
 <script>
-       
+function checking(){
+            let face = document.getElementById('face_edit')
+            let body = document.getElementById('body_edit')
+            let f_surpize = document.getElementById('surp_face_edit');
+            let b_surpize = document.getElementById('surp_body_edit');
+
+            if (face.checked ) {
+            f_surpize.classList.remove('sup_face')
+            b_surpize.classList.remove('check_plus')
+        }
+        else{
+            console.log(0);
+        }
+        if (body.checked) {
+            b_surpize.classList.remove('sup_body')
+            b_surpize.classList.add('check_plus')
+        }
+        else{
+            console.log(0);
+        }
+        }
+
+        checking();
 </script>

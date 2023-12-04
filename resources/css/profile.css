@@ -317,7 +317,7 @@
   }
   .product-card-image{
       width: 270px;
-      height: 350px;
+      max-height: 450px;
   }
   .product-card-category{
       color: #9A9DA0;
@@ -329,6 +329,45 @@
       position: relative;
       bottom: 75px;
       left: 20px;
+  }
+  .wrapper{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .order{
+    width: 100%;
+    max-height: 500px;
+    display: inline-flex;
+    background-color: white;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: black;
+
+  }
+  .order_title{
+    width: 500px;
+    height: 475px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .order_title a{
+    margin-left: 15px;
+  }
+  .order_img{
+    width: 100%;
+    max-height:440px;
+    background-color: white;
+  }
+  .order-info{
+     max-height: 100%;
+     width: 25%;
+     margin-left: 900px;
+     display: flex;
+     justify-content: center;
+     flex-direction: column;
+     gap: 250px;
+     align-items: center;
   }
   .pay_btn{
     position: relative;

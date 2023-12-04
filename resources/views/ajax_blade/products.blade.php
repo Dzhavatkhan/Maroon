@@ -5,8 +5,8 @@
             <td>{{$product->id}}</td>
             <td>{{$product->product_name}}</td>
             <td>{{$product->brand}}</td>
-            <td><img src="{{asset('img/products/'.$product->image)}}" width="50" class="img-fluid" alt=""></td>
-            <td>{{$product->description}}</td>
+            <td><img src="{{asset('img/products/'.$product->image)}}" width="5500" class="img-fluid" alt=""></td>
+            <td style="height: 50px;" class="overflow-hidden">{{$product->description}}</td>
             <td>{{$product->category}}, {{$product->skin}} кожа</td>
             <td>{{$product->quantity}}</td>
             <td>{{$product->price}}</td>

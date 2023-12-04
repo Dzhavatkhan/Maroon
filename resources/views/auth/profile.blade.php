@@ -45,11 +45,11 @@
             </div>
 
         </div>
-        <div id="orders" class="tabcontent">
-            <h2>gfjfds</h2>
+            <div id="orders" class="tabcontent" >
+
+            </div>
         </div>
         @if ($rec_count != 0)
-            {{$rec_count}}
             @include('forms.may_like')
         @endif
 
@@ -69,7 +69,20 @@
     <script>
     $(document).ready(function () {
         balance();
+        ord();
     });
+    function ord(){
+        let ord = $("#orders");
+        $.ajax({
+            type: "GET",
+            url: "{{route('ord')}}",
+            data: "data",
+            cache:false,
+            success: function (data) {
+                ord.html(data);
+            }
+        });
+    }
             function ajax(product_id){
                 $.ajax({
                     type: "GET",
@@ -135,7 +148,7 @@
 
 
             function pay_all(){
-                alert("pay")
+                alert("Подтвердите свое действие")
                 let products_id = document.querySelectorAll('#product_id')
                 console.log(product_id);
                 ajax_array(products_id);

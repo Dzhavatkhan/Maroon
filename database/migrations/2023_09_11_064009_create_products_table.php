@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('type_skins_id')->constrained('type_skins');
             $table->string('brand')->nullable();
             $table->string('image')->nullable();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->bigInteger('quantity')->nullable();
             $table->bigInteger('price')->nullable();
             $table->timestamps();

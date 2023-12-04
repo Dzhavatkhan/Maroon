@@ -44,6 +44,7 @@ use Illuminate\Support\Facades\Route;
     })->name('balance');
     Route::get('profile/id{id}/upd_balance',[UserController::class, 'plus_balance'])->name('plus_balance');
     Route::get('profile/id{id}/pay', [MaroonController::class,'pay'])->name('pay');
+    Route::get('profile/ord', [UserController::class, 'ord'])->name('ord');
 // Route::middleware('auth')->group(function(){
     //admin-panel
 

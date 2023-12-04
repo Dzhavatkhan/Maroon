@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthRequest;
 use App\Models\Order;
+use App\Models\Order_composition;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
@@ -13,6 +14,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Termwind\Components\Raw;
 
 use function Laravel\Prompts\error;
 use function Laravel\Prompts\select;
@@ -184,6 +186,16 @@ class UserController extends Controller
 
         return redirect()->route('profile', Auth::user()->id);
 
+    }
+    public function ord(){
+        $ord = Order_composition::query()
+        ->join("orders", "order_compositions.order_id", "orders.id")
+        ->join("products", "order_compositions.product_id", "products.id")
+        ->join("users", "orders.user_id", "users.id")
+        ->select(DB::raw("products.image AS 'image', products.id AS 'product_id', order_compositions.created_at,order_compositions.id, order_compositions.status,  products.product_name AS 'name', users.name AS 'user', orders.order_price * order_compositions.quantity AS 'price'"))
+        ->get();
+        // $ord = DB::select("SELECT products.image AS 'image', products.id AS 'product_id', order_compositions.created_at,order_compositions.id, order_compositions.status,  products.product_name AS 'name', users.name AS 'user', orders.order_price * order_compositions.quantity AS 'price' FROM order_compositions LEFT JOIN orders ON order_compositions.order_id = orders.id LEFT JOIN products ON order_compositions.product_id = products.id LEFT JOIN users ON orders.user_id = users.id");
+        return view('ajax_blade.ord', compact('ord'));
     }
     public function add_cart(Request $request){
 
