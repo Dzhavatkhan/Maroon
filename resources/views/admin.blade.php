@@ -130,6 +130,44 @@
                                 </tr>
                             @endforeach --}}
                         </tbody>
+                        <!-- The Modal -->
+<div class="modal" id="addAdmin">
+    <form class="admin-form">
+        @csrf
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Добавление админа</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="form-floating mb-3 mt-3">
+            <input type="text" name="name" class="form-control">
+            <label for="">Имя</label>
+          </div>
+          <div class="form-floating mb-3 mt-3">
+            <input type="text" name="login" class="form-control">
+            <label for="">Логин</label>
+          </div>
+          <div class="form-floating mb-3 mt-3">
+            <input type="text" name="password" class="form-control">
+            <label for="">Пароль</label>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Отправить</button>
+        </div>
+
+      </div>
+    </div>
+    </form>
+  </div>
                     </table>
                 </div>
                 <div class="tab-pane container fade" id="orders">
@@ -229,22 +267,27 @@
             getOrders();
         });
 
-        function addAdmin(){
-            $('.form').on('submit', function (e) {
+            $('.admin-form').on('submit', function (e) {
                 e.preventDefault();
                 let formData = new FormData(this);
 
                 $.ajax({
-                    type: "method",
-                    url: "url",
-                    data: "data",
-                    dataType: "dataType",
+                    type: "POST",
+                    url: "{{route('addAdmin')}}",
+                    data: formData,
+                    contentType:false,
+                    processData:false,
+                    cache:false,
                     success: function (response) {
-
+                        console.log(response.data);
+                        getAdmins();
+                    },
+                    error: function(err){
+                        console.error(err);
                     }
                 });
             });
-          }
+
             $('.addProduct').on('submit', function (e) {
                 e.preventDefault();
                 let formData = new FormData(this);

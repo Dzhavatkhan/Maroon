@@ -156,7 +156,22 @@ class AdminController extends Controller
 
     public function add_admin(Request $request)
     {
-        //
+        $data = $request->all([
+            "login",
+            "name",
+            'password'
+        ]);
+        $admin_created = Admin::create([
+            "admin_name" => $data['name'],
+            "login" => $data['login'],
+            'password' => bcrypt($data['password']),
+            "status" => "jun"
+        ]);
+        if($admin_created){
+            return response()->json([
+                "message" => "Админ создан"
+            ], 200);
+        }
     }
     public function delete_admin(Request $request)
     {

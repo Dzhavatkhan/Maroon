@@ -20,7 +20,8 @@
 <tr>
 
         <td>
-            <button class="btn btn-primary" id="#addAdmin">Добавить админа</button>
+            <button class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#addAdmin" id="ll">Добавить админа</button>
+
         </td>
 
 </tr>
