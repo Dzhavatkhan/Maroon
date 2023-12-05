@@ -60,7 +60,47 @@ class MaroonController extends Controller
         $body_query = $request->category_body;
         $face_query = $request->category_face;
         $products = DB::select("SELECT *,products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id ");
-
+        if ($skin == null && $body_query == null && $face_query == null) {
+            $products = Product::query()
+            ->select(DB::raw("*, products.id AS 'product_id', type_categories.name AS 'category'"))
+            ->leftJoin('type_categories', 'products.type_categories_id', 'type_categories.id')->get();
+            $q = $products->count();
+        }
+        elseif($skin == null){
+            $products = Product::query()
+            ->select(DB::raw("*, products.id AS 'product_id', type_categories.name AS 'category'"))
+            ->leftJoin('type_categories', 'products.type_categories_id', 'type_categories.id')
+            ->whereIn('type_categories_id', [$face_query, $body_query])
+            ->get();
+            $q = $products->count();
+        }
+        elseif($body_query == null){
+            $products = Product::query()
+            ->select(DB::raw("*, products.id AS 'product_id', type_categories.name AS 'category'"))
+            ->leftJoin('type_categories', 'products.type_categories_id', 'type_categories.id')
+            ->whereIn('type_categories_id', [$face_query])
+            ->whereIn('type_skins_id', [$skin])
+            ->get();
+            $q = $products->count();
+        }
+        elseif($face_query == null){
+            $products = Product::query()
+            ->select(DB::raw("*, products.id AS 'product_id', type_categories.name AS 'category'"))
+            ->leftJoin('type_categories', 'products.type_categories_id', 'type_categories.id')
+            ->whereIn('type_categories_id', [$body_query])
+            ->whereIn('type_skins_id', [$skin])
+            ->get();
+            $q = $products->count();
+        }
+        else {
+            $products = Product::query()
+            ->select(DB::raw("*, products.id AS 'product_id', type_categories.name AS 'category'"))
+            ->leftJoin('type_categories', 'products.type_categories_id', 'type_categories.id')
+            ->whereIn('type_categories_id', [$face_query, $body_query])
+            ->whereIn('type_skins_id', [$skin])
+            ->get();
+            $q = $products->count();
+        }
         // if($skin == null && $body_query == null && $face_query == null){
         //     $products = DB::select("SELECT *, products.id AS 'product_id', type_categories.name AS 'category' FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id");
         //     $count = DB::select("SELECT COUNT(*) FROM products LEFT JOIN type_categories ON products.type_categories_id = type_categories.id ");

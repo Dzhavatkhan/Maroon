@@ -35,23 +35,23 @@
                             <div class="chack_chack">
                                 <label for="category_body" class="checkbox-label">
                                     <input type="radio" class="input" value="{{ $body->id }}" name="category_body" id="body">  {{ $body->name }}
-                                    
+
                                 </label>
                             </div>
-   
+
                     @endforeach
                 </div>
                 <div class="skin_check">
                     <p class="check_title">Тип кожи</p>
                     @foreach ($type_skin as $skin)
                         <div class="chack_chack">
-                            
+
                             <label for="skin" class="checkbox-label">
                                 <input type="radio" class="input" value="{{ $skin->id }}" name="skin" id="skin">  {{ $skin->name }}
                             </label>
                         </div>
                     @endforeach
-                   
+
                     <button class="enter" type="submit">Применить</button>
                     <button class="out" >Сбросить</button>
                 </div>
@@ -65,11 +65,11 @@
             <a style="text-decoration: none" href="{{ route('product',$product->product_id) }}">
                 <p class="product_name">
                     {{ $product->product_name }}
-                </p> 
+                </p>
             </a>
-            <p class="product_price">{{ $product->price }}</p>  
+            <p class="product_price">{{ $product->price }}</p>
         </div>
-        <p class="product_category">{{ $product->category }}</p>  
+        <p class="product_category">{{ $product->category }}</p>
 
 
     </div>
@@ -137,7 +137,7 @@
 
     @vite('resources/js/catalog.js')
     <script>
-
+        function filter(){
             $('.form').on('submit', function (e) {
             e.preventDefault();
             let cards = document.querySelectorAll('.product_card');
@@ -192,7 +192,11 @@
                         $('#cards').html(data);
                     }
             });
-        });            
+        });
+        }
+        setTimeout(() => {
+            filter();
+        }, 5000);
     </script>
 </body>
 </html>
