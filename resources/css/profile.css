@@ -317,6 +317,7 @@
   }
   .product-card-image{
       width: 270px;
+      height: 350px;
       max-height: 450px;
   }
   .product-card-category{
@@ -334,6 +335,7 @@
     display: flex;
     justify-content: center;
     margin-top: 10px;
+    flex-direction: column;
   }
   .order{
     width: 100%;
@@ -342,6 +344,7 @@
     background-color: white;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     color: black;
+    margin-top: 25px;
 
   }
   .order_title{
@@ -356,18 +359,46 @@
   }
   .order_img{
     width: 100%;
-    max-height:440px;
+    min-height: 90%;
+    max-height:100%;
     background-color: white;
   }
+
   .order-info{
      max-height: 100%;
      width: 25%;
-     margin-left: 900px;
+     margin-left: 300px;
      display: flex;
      justify-content: center;
      flex-direction: column;
-     gap: 250px;
+     gap: 25px;
      align-items: center;
+  }
+  .order-info a{
+    text-decoration: none;
+    font-size: 28px;
+    color: #122947;
+    font-family: "Raleway";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 125%; /* 40px */
+  }
+  .order-info p{
+    color: #122947;
+    font-family: "Heebo";
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%; /* 37.7px */
+  }
+  .of{
+    color: #122947;
+    font-family: "Heebo";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 145%; /* 26.1px */
   }
   .pay_btn{
     position: relative;

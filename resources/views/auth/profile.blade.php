@@ -80,6 +80,7 @@
             cache:false,
             success: function (data) {
                 ord.html(data);
+                console.log("orders")
             }
         });
     }

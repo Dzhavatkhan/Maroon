@@ -46,8 +46,12 @@ class AdminController extends Controller
     }
     public function getOrders(){
         $orders = DB::select("SELECT order_compositions.created_at,order_compositions.id, order_compositions.status,  products.product_name AS 'name', users.name AS 'user', orders.order_price * order_compositions.quantity AS 'price' FROM order_compositions LEFT JOIN orders ON order_compositions.order_id = orders.id LEFT JOIN products ON order_compositions.product_id = products.id LEFT JOIN users ON orders.user_id = users.id");
-        // $orders = Order_composition::query()->leftJoin("orders", "order_compositions.order_id", "orders.id")->leftJoin("products", "order_compositions.product_id", "products.id")->leftJoin("users", "orders.user_id", "users.id");
-        // ->select("order_compositions.created_at,order_compositions.id, order_compositions.status, products.product_name AS 'name', users.name AS 'user',orders.order_price * order_compositions.quantity AS 'price' ");
+        $orders = Order_composition::query()->leftJoin("orders", "order_compositions.order_id", "orders.id")->leftJoin("products", "order_compositions.product_id", "products.id")->leftJoin("users", "orders.user_id", "users.id")
+        // ->select(DB::raw("order_compositions.created_at"))
+        ->select(DB::raw("order_compositions.status, users.name AS 'user', products.product_name AS 'name', order_compositions.id, order_compositions.created_at, orders.order_price * order_compositions.quantity AS 'price'"))
+        ->get();
+
+        //,order_compositions.id, order_compositions.status, products.product_name AS 'name', users.name AS 'user',orders.order_price * order_compositions.quantity AS 'price' ")
         $count = DB::select("SELECT COUNT(*) FROM order_compositions LEFT JOIN orders ON order_compositions.order_id = orders.id LEFT JOIN products ON order_compositions.product_id = products.id LEFT JOIN users ON orders.user_id = users.id");
         return view('ajax_blade.orders', compact('orders','count'));
     }
@@ -67,7 +71,7 @@ class AdminController extends Controller
         $accept = Order_composition::query()->where("id", $id)->update(["status" => "Оформлен"]);
         if ($accept) {
             return response()->json([
-                "message" => $accept
+                "message" => "accept"
             ], 200);
         }
         else{

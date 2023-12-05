@@ -98,6 +98,7 @@ nav{
 }
 .header_slogan_btn{
     margin-left: 55px;
+    transition: 0.5s;
     position: relative;
     bottom: 75px;
     width: 141px;
